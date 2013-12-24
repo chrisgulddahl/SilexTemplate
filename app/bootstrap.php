@@ -1,36 +1,34 @@
 <?php
+function bootstrap($debug){
+	// Define paths ============================
 
-// Define paths ============================
+	defined("PROJECT_ROOT") or define("PROJECT_ROOT", realpath(dirname(__FILE__)) . '/..');
+	defined("TEMP_PATH") or define("TEMP_PATH", PROJECT_ROOT . '/app/temp');
+	defined("SRC_PATH") or define("SRC_PATH", PROJECT_ROOT . '/src');
+	defined("VENDOR_PATH") or define("VENDOR_PATH", PROJECT_ROOT . '/vendor');
 
-defined("PROJECT_ROOT") or define("PROJECT_ROOT", realpath(dirname(__FILE__)) . '/..');
+	// Require configuration and autoloader ====
 
-defined("TEMP_PATH") or define("TEMP_PATH", PROJECT_ROOT . '/app/temp');
+	require_once PROJECT_ROOT . '/app/config.php';
+	require_once VENDOR_PATH . '/autoload.php';
 
-defined("SRC_PATH") or define("SRC_PATH", PROJECT_ROOT . '/src');
+	$app = new Silex\Application();
+	$app['debug'] = $debug;
 
-defined("VENDOR_PATH") or define("VENDOR_PATH", PROJECT_ROOT . '/vendor');
+	// Register services =======================
 
-// Require configuration and autoloader ====
+	// Twig templating
+	$app->register(new Silex\Provider\TwigServiceProvider(), array(
+		'twig.path' => SRC_PATH . '/App/View',
+		'twig.options' => array(
+			'debug' => $debug,
+			'cache' => TEMP_PATH . '/cache/twig'
+		)
+	));
 
-require_once PROJECT_ROOT . '/app/config.php';
-require_once VENDOR_PATH . '/autoload.php';
+	// Route controllers =======================
+	$app->mount('/', new App\Router\DefaultControllerProvider());
 
-$app = new Silex\Application();
-$app['debug'] = $env['debug'];
-
-// Register services =======================
-
-// Twig templating
-$app->register(new Silex\Provider\TwigServiceProvider(), array(
-	'twig.path' => SRC_PATH . '/App/View',
-	'twig.options' => array(
-		'debug' => $app['debug'],
-		'cache' => TEMP_PATH . '/cache/twig'
-	)
-));
-
-// Route controllers =======================
-$app->mount('/', new App\Router\DefaultControllerProvider());
-
-return $app;
+	return $app;
+}
 ?>
