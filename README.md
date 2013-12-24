@@ -10,7 +10,7 @@ Blank project template for Silex php framework containing a sensible project str
 ## Directory Structure
 ```
 - app
-  - temp/cache
+  - temp/cache/twig
 - src
   - App
     - Controller
