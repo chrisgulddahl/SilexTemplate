@@ -5,7 +5,7 @@ Blank project template for Silex php framework containing a sensible project str
 
 ### Features
 * [Silex slim edition](http://silex.sensiolabs.org/download)
-* [Twig](http://twig.sensiolabs.org/)
+* [Twig](http://twig.sensiolabs.org/) templating engine
 
 ### Directory Structure
 ```
@@ -18,3 +18,6 @@ Blank project template for Silex php framework containing a sensible project str
     - View
 - web
 ```
+
+### Improving Performance
+* [Install Twig PHP extension](http://twig.sensiolabs.org/doc/installation.html#installing-the-c-extension) to enhance templating performance.
