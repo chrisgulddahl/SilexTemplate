@@ -1,7 +1,8 @@
 #################
-## Composer Vendors
+## Composer
 #################
 vendor/
+composer.lock
 
 #################
 ## NetBeans
